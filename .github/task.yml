@@ -1,0 +1,25 @@
+name: Push-to-EC2
+
+on:
+ push:
+   paths: 
+     - 'index.html'
+
+jobs:
+  deploy:
+    name: Push to EC2 Instance
+    runs-on: [self-hosted, linux]
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v1
+
+      - name: Deploy to my EC2 instance
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SOURCE: "./index.html"
+          REMOTE_HOST: "ec2-3-110-161-237.ap-south-1.compute.amazonaws.com"
+          REMOTE_USER: "root"
+          TARGET: "/var/www/html"
+
