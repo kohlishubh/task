@@ -20,6 +20,11 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           SOURCE: "./index.html"
           REMOTE_HOST: "ec2-3-110-161-237.ap-south-1.compute.amazonaws.com"
-          REMOTE_USER: "root"
-          TARGET: "/var/www/html"
+          REMOTE_USER: "ubuntu"
+          TARGET: "/home/ubuntu/task"
+      - name: replacing file
+        run: |
+          sudo cp -f /home/ubuntu/task/index.html /var/www/html/index.html
+
+
 
