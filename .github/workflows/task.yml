@@ -1,6 +1,9 @@
 name: Push-to-EC2
 
-on: push
+on:
+ push:
+   paths: 
+     - 'index.html'
 
 jobs:
   deploy:
@@ -15,10 +18,7 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SOURCE: "./"
+          SOURCE: "./index.html"
           REMOTE_HOST: "ec2-35-154-96-96.ap-south-1.compute.amazonaws.com"
           REMOTE_USER: "ubuntu"
-          TARGET: "/home/ubuntu/tasks"
-      - name: replacing file
-        run: |
-          sudo cp -f /home/ubuntu/testing/hello.html /var/www/html/index.html
+          TARGET: "/home/ubuntu/testing"
